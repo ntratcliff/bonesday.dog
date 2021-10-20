@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <bones-status />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BonesStatus from './components/BonesStatus.vue'
 
 export default {
-  name: 'App',
+  name: 'Is today a bones day?',
   components: {
-    HelloWorld
+    BonesStatus
   }
 }
 </script>
