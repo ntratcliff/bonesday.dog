@@ -23,6 +23,7 @@ router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 
 // ========== queries ==========
+const querySelectLatest = "SELECT datetime,bones FROM bones ORDER BY datetime DESC LIMIT 1"
 const querySelectDate = "SELECT datetime,bones FROM bones WHERE date=? ORDER BY datetime DESC"
 
 	// full datetime will trigger update if day is same as existing value
@@ -30,17 +31,21 @@ const queryInsert = `INSERT INTO bones (datetime, bones) VALUES (?)
 	ON DUPLICATE KEY UPDATE bones=VALUES(bones), datetime=VALUES(datetime)`
 
 // ========== routes ==========
+// GET latest bones
+router.get('/bones/', (req, res) => {
+	pool.query(querySelectLatest, (err, results) => {
+		if(err || results.length == 0) {
+			handleError(err, res)
+			return
+		}
 
-// GET bones status
-router.get('/bones/:date?', (req, res) => {
-	var date = req.params.date
+		res.type('json').send(JSON.stringify(results))
+	})
+})
 
-	if (date) {
-		date = new Date(date)
-	} else {
-		date = new Date()
-	}
-
+// GET bones status by date
+router.get('/bones/:date', (req, res) => {
+	var date = new Date(req.params.date)
 	date = date.toJSON().slice(0,10) // convert to YYYY-MM-DD before querying
 
 	pool.query(querySelectDate, [date], (err, results) => {
