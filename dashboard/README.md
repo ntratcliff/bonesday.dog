@@ -1,4 +1,4 @@
-# bonesday.dog client
+# bonesday.dog dashboard
 
 ## Project setup
 ```
