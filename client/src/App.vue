@@ -9,10 +9,15 @@
 import BonesStatus from './components/BonesStatus.vue'
 
 export default {
-	name: 'Is today a bones day?',
+	name: 'App',
 	components: {
 		BonesStatus
-	}
+	},
+	data() {
+		return {
+			response: null,
+		}
+	},
 }
 </script>
 
