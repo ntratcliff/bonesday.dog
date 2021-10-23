@@ -1,11 +1,17 @@
 <template>
 	<div id="bones-status">
 		<!-- loader --> 
-		<div v-if="!responseOK" id="loader">
+		<div id="loader" :class="{ 'hidden': responseOK, 'visible': !responseOK }">
 			<img src="/img/bone.png" >
 		</div>
 		<!-- content -->
-		<div v-if="responseOK" id="status" :class="status ? 'bones' : 'no-bones'">
+		<div
+			id="status"
+			:class="{
+				'bones': status, 'no-bones': !status,
+				'hidden': !responseOK, 'visible': responseOK
+			}"
+		>
 			<h1 class="color">{{ status ? "Yes!" : "No" }}</h1>
 			<p>Today is a <span class="color">{{ status ? "" : "no"}} bones</span> day.</p>
 			<p id="timestamp">Last updated at {{ timestamp }}</p>
@@ -17,11 +23,13 @@
 import axios from 'axios'
 
 const url = process.env.VUE_APP_API_URL
+const showDelay = 3000; // how long to delay showing result even if it loads faster
 
 export default {
 	data() {
 		return {
-			response: null
+			response: null,
+			ready: false
 		}
 	},
 	computed: {
@@ -35,7 +43,7 @@ export default {
 			return this.responseOK && this.response.data[0]
 		},
 		responseOK() {
-			return this.response &&
+			return this.ready && this.response &&
 				this.response.status == 200 &&
 				this.response.data && this.response.data.length > 0
 		}
@@ -43,11 +51,28 @@ export default {
 	async created() {
 		// get bones status from api
 		this.response = await axios.get(url + '/bones/')
+
+		// set ready timeout to show loading animation even if it instantly loads :^)
+		setTimeout((() => this.ready = true).bind(this), showDelay)
 	},
 }
 </script>
 
 <style>
+#bones-status {
+	height: 184px;
+}
+
+.hidden {
+	opacity: 0;
+	transition: opacity 0.3s ease-in;
+}
+
+.visible {
+	opacity: 1;
+	transition: opacity 0.3s ease-in;
+}
+
 #status {
 	text-align: center;
 }
@@ -74,11 +99,12 @@ export default {
 
 #loader {
 	margin: 0 auto;
-	width: 200px;
-	height: 200px;
+	width: 184px;
+	height: 184px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: -184px;
 }
 
 #loader img {
