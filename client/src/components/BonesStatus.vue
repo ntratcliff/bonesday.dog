@@ -59,6 +59,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800');
+
 #bones-status {
 	height: 184px;
 }
@@ -78,6 +80,7 @@ export default {
 }
 
 #status h1 {
+	font-family: 'Nunito', sans-serif;
 	font-size: 9rem;
 	margin: 0 auto;
 	line-height: 80%;
