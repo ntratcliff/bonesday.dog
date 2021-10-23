@@ -13,7 +13,8 @@
 			}"
 		>
 			<h1 class="color">{{ status ? "Yes!" : "No" }}</h1>
-			<p>Today is a <span class="color">{{ status ? "" : "no"}} bones</span> day.</p>
+			<p id="bottom-text">Today is a <span class="color">{{ status ? "" : "no"}} bones</span> day.</p>
+			<p id="mantra">{{ data.mantra }}</p>
 			<p id="timestamp">Last updated at {{ timestamp }}</p>
 		</div>
 	</div>
@@ -63,6 +64,10 @@ export default {
 
 #bones-status {
 	height: 184px;
+	font-size: 16pt;
+	margin: 0 auto;
+	padding: 0 6px;
+	max-width: 500px;
 }
 
 .hidden {
@@ -81,7 +86,7 @@ export default {
 
 #status h1 {
 	font-family: 'Nunito', sans-serif;
-	font-size: 9rem;
+	font-size: 9em;
 	margin: 0 auto;
 	line-height: 80%;
 }
@@ -91,11 +96,20 @@ export default {
 }
 
 .bones .color {
-	color: green;
+	color: #3a3;
 }
 
 .no-bones .color {
-	color: red;
+	color: #e35;
+}
+
+#bottom-text {
+	margin-bottom: 0.3em;
+}
+
+#mantra {
+	margin-top: 0.3em;
+	font-style: italic;
 }
 
 #timestamp {

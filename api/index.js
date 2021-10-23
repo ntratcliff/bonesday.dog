@@ -3,6 +3,8 @@ require('dotenv/config')
 const express = require('express')
 const mysql = require('mysql')
 const cors = require('cors')
+const mantras = require('./mantras.js')
+const seedrandom = require('seedrandom')
 
 // init express app
 const app = express()
@@ -39,7 +41,7 @@ router.get('/bones/', (req, res) => {
 			return
 		}
 
-		res.type('json').send(JSON.stringify(results))
+		res.type('json').send(JSON.stringify(injectMantras(results)))
 	})
 })
 
@@ -55,7 +57,7 @@ router.get('/bones/:date', (req, res) => {
 		}
 
 		if (results.length > 0) {
-			res.type('json').send(JSON.stringify(results))
+			res.type('json').send(JSON.stringify(injectMantras(results)))
 		} else {
 			res.status(404)
 			sendMessage(res, "Could not find bones status for the provided date range")
@@ -113,6 +115,15 @@ function handleError(err, res) {
 	console.error(err)
 	res.status(500)
 	sendMessage(res, "Unknown internal error")
+}
+
+function injectMantras(results) {
+	return results.map(result => {
+		var date = result.datetime.toJSON().split(0,10);
+		var set = result.bones ? mantras.bones : mantras.noBones;
+		var mantra = set[Math.floor(seedrandom(date)() * set.length)]
+		return {...result, mantra: mantra}
+	});
 }
 
 app.use(process.env.BASE_URL, router)
