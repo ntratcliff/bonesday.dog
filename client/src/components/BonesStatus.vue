@@ -1,8 +1,15 @@
 <template>
-	<div v-if="responseOK" id="status" :class="status ? 'bones' : 'no-bones'">
-		<h1 class="color">{{ status ? "Yes!" : "No" }}</h1>
-		<p>Today <span class="color">is {{ status ? "" : "not"}}</span> a bones day.</p>
-		<p id="timestamp">Last updated at {{ timestamp }}</p>
+	<div id="bones-status">
+		<!-- loader --> 
+		<div v-if="!responseOK" id="loader">
+			<img src="/img/bone.png" >
+		</div>
+		<!-- content -->
+		<div v-if="responseOK" id="status" :class="status ? 'bones' : 'no-bones'">
+			<h1 class="color">{{ status ? "Yes!" : "No" }}</h1>
+			<p>Today is a <span class="color">{{ status ? "" : "no"}} bones</span> day.</p>
+			<p id="timestamp">Last updated at {{ timestamp }}</p>
+		</div>
 	</div>
 </template>
 
@@ -64,4 +71,27 @@ export default {
 	font-style: italic;
 	color: #ababab;
 }
+
+#loader {
+	margin: 0 auto;
+	width: 200px;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#loader img {
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	animation: loader-bob 1.2s infinite alternate;
+	animation-timing-function: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+}
+
+@keyframes loader-bob {
+	from {width: 100%; height: 100%;}
+	to {width: 70%; height: 70%;}
+}
+
 </style>
