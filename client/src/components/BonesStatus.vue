@@ -64,10 +64,9 @@ export default {
 
 #bones-status {
 	height: 305px;
-	font-size: 16pt;
 	margin: 0 auto;
-	padding: 0 6px;
 	max-width: 500px;
+	font-size: 0.95em;
 }
 
 .hidden {
