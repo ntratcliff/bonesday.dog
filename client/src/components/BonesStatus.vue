@@ -63,7 +63,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800');
 
 #bones-status {
-	height: 184px;
+	height: 305px;
 	font-size: 16pt;
 	margin: 0 auto;
 	padding: 0 6px;
