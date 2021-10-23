@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<h1>Is today a bones day?</h1>
+		<h1>Does Noodle have bones today?</h1>
 		<bones-status />
 	</div>
 </template>

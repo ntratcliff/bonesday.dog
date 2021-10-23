@@ -86,6 +86,10 @@ export default {
 	line-height: 80%;
 }
 
+.color {
+	font-weight: bold;
+}
+
 .bones .color {
 	color: green;
 }
