@@ -1,7 +1,7 @@
 # bonesday.dog
 Is today a bones day?
 
-This is a monorepo for all of the bonesday.dog services.
+This is a monorepo for all of the [bonesday.dog](https://bonesday.dog) services.
 
 * **[client](client):** The main bonesday.dog site.
 * **[api](api):** The bones API.
